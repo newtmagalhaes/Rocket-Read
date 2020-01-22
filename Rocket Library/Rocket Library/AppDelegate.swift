@@ -26,14 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
       // ...
-      if let error = error { return }
+        if error != nil { return }
         
       guard let authentication = user.authentication else { return }
         
       let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
         
       Auth.auth().signIn(with: credential) {
-        (authResult, error) in if let error = error { return }
+        (authResult, error) in if error != nil { return }
         // User is signed in
         // ...
       }

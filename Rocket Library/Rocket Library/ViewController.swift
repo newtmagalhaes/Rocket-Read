@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var GoogleButton: GIDSignInButton!
     
     override func viewDidLoad() {
-
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().signIn()
     }
