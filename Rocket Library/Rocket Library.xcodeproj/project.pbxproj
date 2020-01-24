@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		19A62F66C90ADF1A2CFFCCB3 /* Pods_Rocket_LibraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D17E2891FB8F477E1EF3721 /* Pods_Rocket_LibraryTests.framework */; };
 		67F3115ECA42B8A934DF4B5D /* Pods_Rocket_Library_Rocket_LibraryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D5E0E0D1C3AAE0C94C494D /* Pods_Rocket_Library_Rocket_LibraryUITests.framework */; };
+		95370EE123D8DAB000BD0580 /* EstanteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95370EE023D8DAB000BD0580 /* EstanteViewController.swift */; };
 		955ACA8123D8801B00D5F0E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 955ACA8023D8801B00D5F0E1 /* GoogleService-Info.plist */; };
 		95A99A5B23D2305C0042EF9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A99A5A23D2305C0042EF9F /* AppDelegate.swift */; };
 		95A99A5D23D2305C0042EF9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A99A5C23D2305C0042EF9F /* SceneDelegate.swift */; };
@@ -19,6 +20,7 @@
 		95A99A7223D2305D0042EF9F /* Rocket_LibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A99A7123D2305D0042EF9F /* Rocket_LibraryTests.swift */; };
 		95A99A7D23D2305D0042EF9F /* Rocket_LibraryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A99A7C23D2305D0042EF9F /* Rocket_LibraryUITests.swift */; };
 		95B0E58C23D635520077FFB4 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B0E58B23D635520077FFB4 /* LibraryViewController.swift */; };
+		95C6850123DA11EE00798C33 /* RocketLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95C684FF23DA11EE00798C33 /* RocketLibrary.xcdatamodeld */; };
 		C6E608CC8F48CDA7B79B3EEC /* Pods_Rocket_Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9794173A1C4772E7F51536BD /* Pods_Rocket_Library.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +46,7 @@
 		3D17E2891FB8F477E1EF3721 /* Pods_Rocket_LibraryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rocket_LibraryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		554FC0C789937B34BAC98578 /* Pods-Rocket LibraryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rocket LibraryTests.debug.xcconfig"; path = "Target Support Files/Pods-Rocket LibraryTests/Pods-Rocket LibraryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		945E920F9BA4651342EB4C0C /* Pods-Rocket Library.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rocket Library.debug.xcconfig"; path = "Target Support Files/Pods-Rocket Library/Pods-Rocket Library.debug.xcconfig"; sourceTree = "<group>"; };
+		95370EE023D8DAB000BD0580 /* EstanteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EstanteViewController.swift; path = ../../../../Downloads/EstanteViewController.swift; sourceTree = "<group>"; };
 		955ACA8023D8801B00D5F0E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95A99A5723D2305C0042EF9F /* Rocket Library.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rocket Library.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A99A5A23D2305C0042EF9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		95A99A7C23D2305D0042EF9F /* Rocket_LibraryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rocket_LibraryUITests.swift; sourceTree = "<group>"; };
 		95A99A7E23D2305D0042EF9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95B0E58B23D635520077FFB4 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		95C6850023DA11EE00798C33 /* RocketLibrary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RocketLibrary.xcdatamodel; sourceTree = "<group>"; };
 		9794173A1C4772E7F51536BD /* Pods_Rocket_Library.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rocket_Library.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F515EE7E07748C827286BC9 /* Pods-Rocket Library.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rocket Library.release.xcconfig"; path = "Target Support Files/Pods-Rocket Library/Pods-Rocket Library.release.xcconfig"; sourceTree = "<group>"; };
 		A619FF82085E92E99D80A60E /* Pods-Rocket Library-Rocket LibraryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rocket Library-Rocket LibraryUITests.release.xcconfig"; path = "Target Support Files/Pods-Rocket Library-Rocket LibraryUITests/Pods-Rocket Library-Rocket LibraryUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 				95A99A5C23D2305C0042EF9F /* SceneDelegate.swift */,
 				95A99A5E23D2305C0042EF9F /* ViewController.swift */,
 				95B0E58B23D635520077FFB4 /* LibraryViewController.swift */,
+				95C684FF23DA11EE00798C33 /* RocketLibrary.xcdatamodeld */,
+				95370EE023D8DAB000BD0580 /* EstanteViewController.swift */,
 				95A99A6023D2305C0042EF9F /* Main.storyboard */,
 				95A99A6323D2305D0042EF9F /* Assets.xcassets */,
 				95A99A6523D2305D0042EF9F /* LaunchScreen.storyboard */,
@@ -453,6 +459,8 @@
 				95A99A5F23D2305C0042EF9F /* ViewController.swift in Sources */,
 				95A99A5B23D2305C0042EF9F /* AppDelegate.swift in Sources */,
 				95B0E58C23D635520077FFB4 /* LibraryViewController.swift in Sources */,
+				95C6850123DA11EE00798C33 /* RocketLibrary.xcdatamodeld in Sources */,
+				95370EE123D8DAB000BD0580 /* EstanteViewController.swift in Sources */,
 				95A99A5D23D2305C0042EF9F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,6 +792,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		95C684FF23DA11EE00798C33 /* RocketLibrary.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				95C6850023DA11EE00798C33 /* RocketLibrary.xcdatamodel */,
+			);
+			currentVersion = 95C6850023DA11EE00798C33 /* RocketLibrary.xcdatamodel */;
+			path = RocketLibrary.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 95A99A4F23D2305C0042EF9F /* Project object */;
 }
