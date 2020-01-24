@@ -23,10 +23,12 @@ class PerfilViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UserImage.layer.cornerRadius = UserImage.frame.size.width / 2
+        
         let usuario = Auth.auth().currentUser
         userEmail.text = usuario?.email
         
-        // MARK: - TODO: Set image
         // GET user.photoURL e SET na tela
         URLSession.shared.dataTask(with: (usuario?.photoURL)!) { data, response, error in
             if let error = error {
