@@ -43,7 +43,7 @@ class LibraryViewController: UIViewController, UITextFieldDelegate {
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
         
-        return ((string.isEmpty) || (Int(string)) != nil) && count <= 6
+        return ((string.isEmpty) || (Int(string)) != nil) && count <= 4
     }
     
     @IBAction func botaoOk(_ sender: Any) {
@@ -62,20 +62,31 @@ class LibraryViewController: UIViewController, UITextFieldDelegate {
             book.setValue("\(textFieldTitulo.text!.trimmingCharacters(in: .whitespacesAndNewlines))", forKey: "titulo")
             book.setValue(Int(textFieldNPaginas.text!), forKey: "nPaginas")
             book.setValue(0, forKey: "paginaAtual")
-            book.setValue("url google", forKey: "capa")
+            book.setValue(Date(), forKey: "dataIni")
+            book.setValue(previsaoTermino.date, forKey: "dataPrev")
             
-            do {
-                try managedContext.save()
-                print("gg salvou")
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
-            }
-            
-            if let estanteViewController = self.parent?.presentingViewController?.children.first?.children.first as? EstanteViewController {
+            googleBooks(title: textFieldTitulo.text!.trimmingCharacters(in: .whitespacesAndNewlines), completionHandler: { urlImage in
                 
-                estanteViewController.retrieveData()
-                self.dismiss(animated: true, completion: nil)
-            }
+                print("Terminou! \(urlImage)")
+                
+                book.setValue(urlImage, forKey: "capa")
+                
+                do {
+                    try managedContext.save()
+                    print("gg salvou")
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+                DispatchQueue.main.async {
+                    if let estanteViewController = self.parent?.presentingViewController?.children.first?.children.first as? EstanteViewController {
+                        
+                        estanteViewController.retrieveData()
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+                
+            })
         }
 
     }
@@ -112,13 +123,13 @@ class LibraryViewController: UIViewController, UITextFieldDelegate {
         }
 
     func setDateFinish () {
-          let numPg: Int = Int(textFieldNPaginas.text!) == nil ? 0 : Int(textFieldNPaginas.text!)!
-          let dataAtual: Date = Date()
-          let dataPrevista: Date = previsaoTermino.date
-          let distance: TimeInterval = dataPrevista.timeIntervalSince(dataAtual)
-          let diasAte: Double = round(distance / (24*60*60)) == 0 ? 2 : distance / (24*60*60) + 1
-          let pgPorDia: Int = numPg/Int(round(diasAte)) <= 0 ? 1 : numPg/Int((diasAte.rounded(.up)))
-          paginasPorDia.text = "\(pgPorDia)"
+          func diasAte (dataIni: Date, dataFim: Date) -> Double {
+
+              let distance: TimeInterval = dataFim.timeIntervalSince(dataIni)
+              let diasAte = round(distance / (24*60*60)) == 0 ? 2 : distance / (24*60*60) + 1
+              return diasAte
+
+          }
       }
     
     private func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -130,17 +141,57 @@ class LibraryViewController: UIViewController, UITextFieldDelegate {
             self.view.endEditing(true)
         }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    func googleBooks (title: String, completionHandler: @escaping (String) -> Void ) {
+        let Newtitulo = title.replacingOccurrences(of: " ", with: "%20")
+        print(Newtitulo)
+            let path: String = "https://www.googleapis.com/books/v1/volumes?q=\(Newtitulo)&maxResults=1&orderBy=relevance&printType=books&key=AIzaSyDFyRuS8rcCG3qLaIky7VNo8u9hIRg5yg8"
+        
+        let url: URL = URL(string: path)!
+            
+            //GET
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                guard let data = data else { return }
+                
+                do {
+                    let booksResult = try JSONDecoder().decode(BooksResultJSON.self, from: data)
+                    
+                    if let urlImage = booksResult.items.first?.volumeInfo.imageLinks.thumbnail {
+                        
+                        completionHandler(urlImage)
+                    }
+                    
+                } catch {
+                    print(error.localizedDescription)
+                    completionHandler("https://pbs.twimg.com/profile_images/783312363978129408/R6vKaLYH_400x400.jpg")
+                }
+                
+                
+            }.resume()
     }
-    */
-    
-    
+}
+
+struct BooksResultJSON: Decodable {
+    let items: [ItemJSON]
+}
+
+struct ItemJSON: Decodable {
+    let volumeInfo: VolumeInfoJSON
+}
+
+struct VolumeInfoJSON: Decodable {
+    let imageLinks: ImageLinkJSON
+}
+
+struct ImageLinkJSON: Decodable {
+    let smallThumbnail: String?
+    let thumbnail: String?
+    let largeThumbnail: String?
 }
 
 extension Date {
@@ -163,3 +214,10 @@ extension Date {
     }
 }
 
+func diasAte (dataIni: Date, dataFim: Date) -> Double {
+
+    let distance: TimeInterval = dataFim.timeIntervalSince(dataIni)
+    let diasAte = round(distance / (24*60*60)) == 0 ? 2 : distance / (24*60*60) + 1
+    return diasAte
+
+}

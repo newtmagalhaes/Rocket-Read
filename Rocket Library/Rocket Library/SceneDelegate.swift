@@ -25,7 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         
         if let user = Auth.auth().currentUser {
-                        
+            
+            //MARK: - TODO: salvar usuario que esta logado
+            
             let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             if let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
                 

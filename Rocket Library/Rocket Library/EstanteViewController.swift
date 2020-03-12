@@ -48,7 +48,20 @@ class EstanteViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.labelAutor?.text = livro.autor
         let progresso: Float = Float(livro.paginaAtual) / Float(livro.nPaginas)
         cell.progressBar?.setProgress(progresso, animated: true)
-        cell.imageCapa?.image = UIImage(named: livro.capa!)
+        //MARK: - TODO: tudo
+        
+        URLSession.shared.dataTask(with: URL(string: livro.capa!)!) {data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            DispatchQueue.main.async {
+                cell.imageCapa.image = UIImage(data: data!)
+            }
+            print("gg wp")
+        }.resume()
+            
+         ///
         cell.labelProgress?.text = "pg. \(livro.paginaAtual) / \(livro.nPaginas)"
         return cell
     }
@@ -118,7 +131,7 @@ class EstanteViewController: UIViewController, UITableViewDelegate, UITableViewD
             let textField = alertBox?.textFields![0]
             print("Text field: \(String(describing: textField?.text))")
         }))
-        
+
         alertBox.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertBox] (_) in
             let textField = alertBox?.textFields?[0]
             self.livros[(sender as! UIButton).tag].paginaAtual =  (Int16(textField!.text!) ?? self.livros[(sender as! UIButton).tag].paginaAtual)
@@ -129,6 +142,7 @@ class EstanteViewController: UIViewController, UITableViewDelegate, UITableViewD
             } else {
                 livro.setValue(Int(textField!.text!), forKey: "paginaAtual")
             }
+            livro.setValue(dateFinish(Int(livro.nPaginas), Int((Double(livro.nPaginas) / diasAte(dataIni: livro.dataIni!, dataFim: livro.dataPrev!)))), forKey: "dataPrev")
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
             do {
@@ -137,16 +151,26 @@ class EstanteViewController: UIViewController, UITableViewDelegate, UITableViewD
             } catch {
                 print(error)
             }
-            
         }))
         self.present(alertBox, animated: true, completion: nil)
     }
+    
+    
     
     
     @IBAction func cadastrarLivros(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "cadastrarLivrosSegue", sender: Any?.self)
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let infoViewController = segue.destination as? InfoViewController,
+            let indice = self.tableView.indexPathForSelectedRow?.row
+            else {
+                return
+        }
+        infoViewController.livro = livros[indice]
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         self.performSegue(withIdentifier: "descricaoLivroSegue", sender: Any?.self)
@@ -162,7 +186,6 @@ class EstanteViewController: UIViewController, UITableViewDelegate, UITableViewD
             livros.removeAll()
             for data in result as! [NSManagedObject] {
                 livros.append(data as! Livro)
-                print("That works")
             }
         } catch {
             print("Don'T WORK")
@@ -191,3 +214,9 @@ extension UITableView {
     }
 }
 
+func dateFinish (_ numPg: Int, _ pagPDia: Int) -> Date {
+    let hoje: Date = Date()
+    let intervalo: TimeInterval = TimeInterval((pagPDia/numPg) * 24 * 60 * 60)
+    let datefinish: Date = hoje.addingTimeInterval(intervalo)
+    return datefinish
+}
